@@ -22,7 +22,7 @@ def _get_reasoning_type(dt_name):
         reasoning_type = 'algorithmic'
     elif dt_name in ['csqa', 'saycan', 'sports', 'strategyqa', 'gsm8k_cot']:
         reasoning_type = 'commonsense'
-    elif dt_name in ['ncbi']:
+    elif dt_name in ['ncbi', 'i2b2', 'bc2gm']:
         reasoning_type = 'ner'
     else:
         reasoning_type = 'arithmetic'
@@ -59,7 +59,12 @@ def _get_request(raw, dt_name):
     elif dt_name in ['ncbi']:
         instruction = "Given a passage, your task is to identify and extract all entities accurately, ensuring that you captures entire noun phrases (NPs) containing the entities. Determine the entity types from this list: [disease]. The output should be in a list of the following format:['entity 1', 'entity 2', ... }. If there is none, return an empty list []. You can refer to the definitions of potential entities. Please note that there can be diseases which are not in the potential entities."
         in_context = raw.strip()
-        
+    elif dt_name in ['i2b2']:
+        instruction = "Given a passage, your task is to identify and extract all entities accurately, ensuring that you captures entire noun phrases (NPs) containing the entities. Determine the entity types from this list: [problem, treatment, test]. The output should be in a dictionary of the following format: \{ 'entity_type 1':['entity 1', 'entity 2', ...], 'entity_type 2':['entity 1', 'entity 2', ...], 'entity_type 3':['entity 1', 'entity 2', ...]\}. If there is none, return an empty dict \{\}. You can refer to the definitions of potential entities. Please note that there can be diseases which are not in the potential entities."
+        in_context = raw.strip()
+    elif dt_name in ['bc2gm']:
+        instruction = "Given a passage, your task is to identify and extract all entities accurately, ensuring that you captures entire noun phrases (NPs) containing the entities. Determine the entity types from this list: [gene]. The output should be in a list of the following format:['entity 1', 'entity 2', ... }. If there is none, return an empty list []. You can refer to the definitions of potential entities. Please note that there can be diseases which are not in the potential entities."
+        in_context = raw.strip()
     else:
         assert False, f"cannot support dataset {dt_name}"
         
@@ -181,7 +186,7 @@ def get_prompt_inputs(dt_name, prompts, example, use_chatgpt=False):
             prompt += f'Q: {qu}\nAnswer Choices:\n{options}\n\nA:\n'
         if return_eval:
             prefix += f'Q: {qu}\nAnswer Choices:\n{options}\n\nA:\n'
-    elif dt_name in ['ncbi']:
+    elif dt_name in ['ncbi', 'i2b2', 'bc2gm']:
         if use_chatgpt:
             instr, _ = _get_request(qu, dt_name)
             prompt += [{"role": "user", "content": f"{instr} Passage: {qu}"}]

@@ -26,7 +26,7 @@ def parse_args():
                             'gsm8k', 'aqua', 'svamp', 'asdiv', 'mawps', 'tabmwp', 'finqa',
                             'object_counting', 'repeat_copy', 'colored_object', 'penguin',
                             'date_understanding', 'sports', 'csqa', 'saycan', 'strategyqa',
-                            'gsm8k_cot', 'ncbi'
+                            'gsm8k_cot', 'ncbi', 'i2b2', 'bc2gm'
                         ], 
                         help='the dataset to test')
     parser.add_argument("--input_file", required=True, type=str, help='input data file to generate code')
