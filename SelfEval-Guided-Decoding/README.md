@@ -5,6 +5,29 @@ Below is the framework of our proposed method (on the left) together with a prom
 
 ![Model Framework](analysis/framework-prompt.png)
 
+## To run NER experiments
+```bash
+set -x
+
+split=test
+dtname=ncbi
+
+mkdir -p ${OUTPUTHOME}
+
+cd ${EXEHOME}
+
+python generate_code_llama.py --verbal \
+    --dt_name ${dtname} \
+    --model_name meta-llama/Llama-3.1-8B-Instruct \
+    --input_file ${DATAHOME}/${dtname}_${split}.jsonl \
+    --output_dir ${OUTPUTHOME} \
+    --mini_n_samples 2 --mini_n_samples_eval 2 --max_tokens 52 \
+    --beam_size 5 \
+    --reject_sample --unbiased \
+    --bs_temperature 0.0 --bs_temperature_decay 0.5 \
+    --temperature 0.5 --n_samples 2 --conf_ratio 0
+```
+
 ## What's New?
 * `09/2023`: Llama-2 is supported. Please check example [scripts](./scripts/llama) for details.
 * `07/2023`: Our algorithm of Guided Decoding is supported by [LLM-Reasoners](https://github.com/Ber666/llm-reasoners). You can utilize the library to better compare our method with other cutting-edge reasoning algorithms.
