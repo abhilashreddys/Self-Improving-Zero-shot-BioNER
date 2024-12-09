@@ -15,3 +15,7 @@ The datasets used in this project are:
 1. [NCBI Disease](https://www.ncbi.nlm.nih.gov/CBBresearch/Dogan/DISEASE/)
 2. [I2B2 2010](https://www.i2b2.org/NLP/DataSets/)
 3. [BC2GM](https://github.com/spyysalo/bc2gm-corpus)
+
+## References
+- Code for Self-Evaluation Guided Decoding is adapted from [SelfEval-Guided Decoding for Multi-step Reasoning](https://github.com/YuxiXie/SelfEval-Guided-Decoding)
+- Necessary changes have been made to the code to adapt it to the biomedical NER task.
