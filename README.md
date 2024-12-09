@@ -13,5 +13,5 @@ pip install -r requirements.txt
 ## Datasets
 The datasets used in this project are:
 1. [NCBI Disease](https://www.ncbi.nlm.nih.gov/CBBresearch/Dogan/DISEASE/)
-2. [I2B2 2010] (https://www.i2b2.org/NLP/DataSets/)
-3. [BC2GM] (https://github.com/spyysalo/bc2gm-corpus)
+2. [I2B2 2010](https://www.i2b2.org/NLP/DataSets/)
+3. [BC2GM](https://github.com/spyysalo/bc2gm-corpus)
