@@ -34,4 +34,4 @@ Once the data download is complete, the data needs to be extracted from the zip 
 The script umls-extraction.py is a python file that can be run by using the command - python3 filename.py
 
 ---
-<sub><sup>This repository is adapted from the code of the works [LLMs in Biomedical: A Study on Named Entity Recognition](https://github.com/masoud-monajati/LLM_Bio_NER)</sup></sub>
+<sub><sup>This repository is adapted from the code of the works [LLMs in Biomedical: A Study on Named Entity Recognition](https://github.com/masoud-monajati/LLM_Bio_NER). We use the UMLParser designed here for the extraction process.</sup></sub>
