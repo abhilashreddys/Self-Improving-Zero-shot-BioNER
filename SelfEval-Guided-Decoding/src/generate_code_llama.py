@@ -11,6 +11,7 @@ from utils.prompt import *
 from utils.dataset import jsonlines_load
 
 from utils.Beam import Beam
+from utils.adaptive_consistency import *
 
 
 def parse_args():
@@ -345,6 +346,28 @@ def generate_code_beam_search(args, exp):
     return to_return, dur, {k:[] for k in all_generated_codes}
 
 
+def adaptive_consistency_ner(example, args, max_gens=40, threshold=0.95):
+    """
+    Adaptive Consistency implementation for NER tasks
+    """
+    observations = []
+    durations = []
+    all_candidates = []
+    entity_predictions = []
+    
+    for k in range(1, max_gens):
+        # Get new prediction from LLM
+        result, dur, all_candidate = generate_code_beam_search(args, example)
+        observations.append(result)
+        durations.append(dur)
+        all_candidates.append(all_candidate)
+        
+        if k >= 3:  # Need minimum samples to start checking
+            if should_stop_ner(observations, threshold):
+                break
+    
+    return get_majority_entities(observations), durations, all_candidates
+
 if __name__ == "__main__":
     args = parse_args()
     
@@ -444,7 +467,8 @@ if __name__ == "__main__":
     inputs = inputs[::-1] if args.reverse else inputs
     
     for example in tqdm(inputs):
-        result, dur, all_candidates = generate_code_beam_search(args, example)
+        # result, dur, all_candidates = generate_code_beam_search(args, example)
+        result, dur, all_candidates = adaptive_consistency_ner(example, args, max_gens=40, threshold=0.95)
         example.update({
             'generated': result, 'all_generated': all_candidates, 'run_time': dur
         })
