@@ -1,0 +1,13 @@
+llm-reasoners
+triton
+transformers
+matplotlib
+seaborn
+scikit-learn
+blobfile
+openai
+ipykernel
+sentencepiece
+geom_median
+timm
+peft
